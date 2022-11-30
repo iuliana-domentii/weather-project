@@ -22,25 +22,23 @@
   <body>
     <div class="container my-container">
       <div class="row header">
-        <h1 id="current-city-id">Zürich</h1>
+        <h1 id="current-city-id"></h1>
       </div>
       <div class="row">
         <div class="col-3 about-weather">
-          Precipitation: 100%
+          Humidity: <span id="humidity-id"></span> %
           <br />
-          Humidity: 91%
-          <br />
-          Wind: 13km/h
+          Wind: <span id="wind-id"></span> km/h
         </div>
         <div class="col-6 current-temperature">
-          ☁️
+          <img id="weather-icon-id" src="" alt="N/A" width="80" height="80" />
           <br />
-          <span id="current-city-temp-id"> 12°C </span>
+          <span id="current-city-temp-id"></span>
         </div>
         <div class="col-3 day-time">
           <span id="day-time-id"> Saturday 4:31 </span>
           <br />
-          Cloudy
+          <span id="weather-description-id" class="weather-description"></span>
         </div>
       </div>
       <form>

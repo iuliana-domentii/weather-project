@@ -35,6 +35,13 @@ body {
   text-align: right;
   padding-right: 40px;
 }
+.weather-description {
+  display: block;
+}
+.weather-description::first-letter {
+  text-transform: capitalize;
+}
+
 .search {
   width: 40%;
   margin: 0 auto;
