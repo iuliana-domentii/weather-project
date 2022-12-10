@@ -16,7 +16,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script type="text/javascript" src="src/index.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
@@ -73,50 +72,40 @@
           </div>
         </div>
       </form>
-      <div class="row days">
-        <div class="col-1"></div>
-        <div class="col-2">
-          Sunday
-          <br />
-          🌧
-          <br />
-          18°C
-        </div>
-        <div class="col-2">
-          Monday
-          <br />
-          🌧
-          <br />
-          17°C
-        </div>
-        <div class="col-2">
-          Tuesday
-          <br />
-          ⛅
-          <br />
-          18°C
-        </div>
-        <div class="col-2">
-          Wednesday
-          <br />
-          ⛅
-          <br />
-          20°C
-        </div>
-        <div class="col-2">
-          Thursday
-          <br />
-          ☀️
-          <br />
-          19°C
-        </div>
-        <div class="col-1"></div>
-      </div>
+      <div class="weather-forecast" id="forecast"></div>
       <div class="row cities">
-        <div class="col-3">Bern</div>
-        <div class="col-3">Paris</div>
-        <div class="col-3">Berlin</div>
-        <div class="col-3">Rome</div>
+        <div class="col-3">
+          <input
+            type="button"
+            value="Tokyo"
+            class="btn btn-outline-secondary cities-btn"
+            onclick="setCityWeather('Tokyo')"
+          />
+        </div>
+        <div class="col-3">
+          <input
+            type="button"
+            value="London"
+            class="btn btn-outline-secondary cities-btn"
+            onclick="setCityWeather('London')"
+          />
+        </div>
+        <div class="col-3">
+          <input
+            type="button"
+            value="Paris"
+            class="btn btn-outline-secondary cities-btn"
+            onclick="setCityWeather('PAris')"
+          />
+        </div>
+        <div class="col-3">
+          <input
+            type="button"
+            value="New York"
+            class="btn btn-outline-secondary cities-btn"
+            onclick="setCityWeather('New York')"
+          />
+        </div>
       </div>
     </div>
     <div class="author">
@@ -127,5 +116,6 @@
       >
       by Iuliana Domentii
     </div>
+    <script src="src/index.js"></script>
   </body>
 </html>

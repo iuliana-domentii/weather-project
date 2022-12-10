@@ -39,14 +39,6 @@ function setCityWeather(city) {
   axios.get(apiUrl).then(setWeather).catch(logError);
 }
 
-function initAfterPageLoad() {
-  setCurrentTime();
-  addEnterEventOnSearchButton();
-  setCityWeather("Bern");
-}
-
-document.addEventListener("DOMContentLoaded", initAfterPageLoad);
-
 function searchCityHandle(event) {
   event.preventDefault();
 
@@ -91,30 +83,31 @@ function setWeather(response) {
 
   setWeatherIcon(response.data.weather[0].icon);
   setCurrentTime();
+  getForecast(response.data.coord.lat, response.data.coord.lon);
 }
 
-function setWeatherIcon(weatherIcon) {
-  const weatherIcons = {
-    "01d": "src/img/01d.png",
-    "02d": "src/img/01n.png",
-    "03d": "src/img/02d.png",
-    "04d": "src/img/04d.png",
-    "09d": "src/img/09d.png",
-    "10d": "src/img/10d.png",
-    "11d": "src/img/11d.png",
-    "13d": "src/img/13d.png",
-    "50d": "src/img/50d.png",
-    "01n": "src/img/01n.png",
-    "02n": "src/img/02n.png",
-    "03n": "src/img/03n.png",
-    "04n": "src/img/04n.png",
-    "09n": "src/img/09n.png",
-    "10n": "src/img/10n.png",
-    "11n": "src/img/11n.png",
-    "13n": "src/img/13n.png",
-    "50n": "src/img/50n.png",
-  };
+const weatherIcons = {
+  "01d": "src/img/01d.png",
+  "02d": "src/img/02d.png",
+  "03d": "src/img/03d.png",
+  "04d": "src/img/04d.png",
+  "09d": "src/img/09d.png",
+  "10d": "src/img/10d.png",
+  "11d": "src/img/11d.png",
+  "13d": "src/img/13d.png",
+  "50d": "src/img/50d.png",
+  "01n": "src/img/01n.png",
+  "02n": "src/img/02n.png",
+  "03n": "src/img/03n.png",
+  "04n": "src/img/04n.png",
+  "09n": "src/img/09n.png",
+  "10n": "src/img/10n.png",
+  "11n": "src/img/11n.png",
+  "13n": "src/img/13n.png",
+  "50n": "src/img/50n.png",
+};
 
+function setWeatherIcon(weatherIcon) {
   let weatherIconElement = document.querySelector("#weather-icon-id");
 
   let weatherIconSrc = weatherIcons[weatherIcon];
@@ -128,3 +121,61 @@ function setWeatherIcon(weatherIcon) {
 function logError(error) {
   console.log(error);
 }
+
+function getForecast(latitude, longitude) {
+  //const lat = Math.round(latitude * 100) / 100;
+  //const lon = Math.round(longitude * 100) / 100;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(showForecast).catch(logError);
+}
+
+function getDayFromTimestamp(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function showForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastData = response.data.daily.slice(1, 7);
+
+  let forecastHTML = `<div class="row">`;
+  forecastData.forEach(function (dayData) {
+    forecastHTML =
+      forecastHTML +
+      `
+        <div class="col-2">
+          <div class="daily-weather-forecast">${getDayFromTimestamp(
+            dayData.dt
+          )}</div>
+          <img
+            src=${weatherIcons[dayData.weather[0].icon]}
+            alt=""
+            width="42"
+          />
+          <div class="weather-forecast-temperatures">
+            <span class="weather-forecast-temperature-max"> ${Math.round(
+              dayData.temp.max
+            )}° </span>
+            <span class="weather-forecast-temperature-min"> ${Math.round(
+              dayData.temp.min
+            )}° </span>
+          </div>
+        </div>
+      `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function initAfterPageLoad() {
+  setCurrentTime();
+  addEnterEventOnSearchButton();
+  setCityWeather("Bern");
+}
+
+initAfterPageLoad();
