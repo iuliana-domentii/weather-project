@@ -87,4 +87,6 @@ body {
 }
 .cities-btn {
   width: 70%;
+  max-width: 100px;
+  min-width: 90px;
 }
